@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.rabbitmq.rabbitamqp.model.SimpleMessage;
+
 @SpringBootApplication
 public class RabbitamqpApplication implements CommandLineRunner{
 
@@ -24,7 +26,13 @@ public class RabbitamqpApplication implements CommandLineRunner{
 		rabbitTemplate.convertAndSend("Hello from our first message");
 		
 		*/
-		rabbitTemplate.convertAndSend("TestExchange", "testRouting", "Hello from code");
+		
+		SimpleMessage simpleMessage = new SimpleMessage();
+		simpleMessage.setName("FirstMessage");
+		simpleMessage.setDescription("simpleDescription");
+		
+		rabbitTemplate.convertAndSend("TestExchange", "testRouting", simpleMessage);
+		
 		
 	}
 
